@@ -1,0 +1,830 @@
+---
+title: "Portfolio Management"
+output: html_document
+date: "2022-11-27"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+##### Value weighted
+
+```{r}
+df <- read.csv("Average Value weighted.csv")
+```
+```{r}
+df <- data.frame(df)
+```
+
+```{r}
+1
+##df$X <- (df$X*100)+1
+##df$X <- as.character(df$X)
+##df$X <- as.Date(df$X,"%Y%m%d")
+```
+
+
+
+```{r}
+df$date <- df$X
+```
+
+```{r}
+1
+##df$X <- as.numeric(df$X)
+```
+
+
+
+```{r}
+head(df)
+```
+
+## Spread Porfolio
+
+```{r}
+df$Spread_Portfolio <- df$High-df$Low
+```
+
+
+#mean
+```{r}
+mean1 <- mean(df$Low)
+mean2 <- mean(df$X2)
+mean3 <- mean(df$X3)
+mean4 <- mean(df$X4)
+mean5 <- mean(df$X5)
+mean6 <- mean(df$X6)
+mean7 <- mean(df$X7)
+mean8 <- mean(df$X8)
+mean9 <- mean(df$X9)
+mean10 <- mean(df$High)
+meanspread <- mean(df$Spread_Portfolio)
+meanrf <- mean(df$RF)
+```
+
+##sd
+```{r}
+sd1 <- sd(df$Low)
+sd2 <- sd(df$X2)
+sd3 <- sd(df$X3)
+sd4 <- sd(df$X4)
+sd5 <- sd(df$X5)
+sd6 <- sd(df$X6)
+sd7 <- sd(df$X7)
+sd8 <- sd(df$X8)
+sd9 <- sd(df$X9)
+sd10 <- sd(df$High)
+sdspread <- sd(df$Spread_Portfolio)
+```
+
+##Sharp ratio
+```{r}
+(sr1 <- (mean1-meanrf )/sd1)
+(sr2 <- (mean2-meanrf )/sd2)
+(sr3 <- (mean3-meanrf )/sd3)
+(sr4 <- (mean4-meanrf )/sd4)
+(sr5 <- (mean5-meanrf )/sd5)
+(sr6 <- (mean6-meanrf )/sd6)
+(sr7 <- (mean7-meanrf )/sd7)
+(sr8 <- (mean8-meanrf )/sd8)
+(sr9 <- (mean9-meanrf )/sd9)
+(sr10 <- (mean10-meanrf )/sd10)
+(srspread <- (meanspread-meanrf )/sdspread)
+```
+
+```{r}
+srspread
+```
+
+
+
+##CAPM regression
+```{r}
+df$excess_return1 <- df$Low-df$RF
+df$excess_return2 <- df$X2-df$RF
+df$excess_return3 <- df$X3-df$RF
+df$excess_return4 <- df$X4-df$RF
+df$excess_return5 <- df$X5-df$RF
+df$excess_return6 <- df$X6-df$RF
+df$excess_return7 <- df$X7-df$RF
+df$excess_return8 <- df$X8-df$RF
+df$excess_return9 <- df$X9-df$RF
+df$excess_return10 <- df$High-df$RF
+```
+
+
+
+
+## 3 fector data
+```{r}
+FM <- read.csv("3FM.csv")
+```
+```{r}
+head(FM)
+```
+
+### Mrt-Rf/100
+```{r}
+FM$Mkt.RF <- FM$Mkt.RF/100
+```
+
+```{r}
+head(FM)
+```
+
+##CAPM regressions
+```{r}
+lm(df$excess_return1~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return2~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return3~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return4~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return5~FM$Mkt.RF)
+```
+
+```{r}
+lm(df$excess_return6~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return7~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return8~FM$Mkt.RF)
+```
+
+```{r}
+lm(df$excess_return9~FM$Mkt.RF)
+```
+
+```{r}
+lm(df$excess_return10~FM$Mkt.RF)
+```
+
+```{r}
+lm(df$Spread_Portfolio~FM$Mkt.RF)
+```
+
+
+
+##Fama-French-model
+```{r}
+lm(df$excess_return1~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return2~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return3~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return4~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return5~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return6~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return7~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return8~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return9~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return10~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$Spread_Portfolio~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+##Q2
+
+```{r}
+tail(df)
+```
+
+```{r}
+sample1960 <-  df[df$X>=196001&df$X<197001 ,]
+sample1970 <-  df[df$X>=197001&df$X<=198001 ,]
+sample1980 <-  df[df$X>=198001&df$X<=199001 ,]
+sample1990 <-  df[df$X>=199001&df$X<=200001 ,]
+sample2000 <-  df[df$X>=200001&df$X<=201001 ,]
+sample2010 <-  df[df$X>=201001 ,]
+```
+### recession file
+```{r}
+USREC <- read.csv("USREC.csv")
+USREC <- na.omit(USREC)
+```
+
+
+
+```{r}
+df$USREC <- USREC$USREC
+```
+
+
+
+```{r}
+Recession <- df[df$USREC==1,]
+Expansion <- df[df$USREC==0,]
+```
+
+```{r}
+(mean1960D1 <- mean(sample1960$Low))
+(mean1960D10 <- mean(sample1960$High))
+(mean1960SP <- mean(sample1960$Spread_Portfolio))
+(mean1970D1 <- mean(sample1970$Low))
+(mean1970D10 <- mean(sample1970$High))
+(mean1970SP <- mean(sample1970$Spread_Portfolio))
+(mean1980D1 <- mean(sample1980$Low))
+(mean1980D10 <- mean(sample1980$High))
+(mean1980SP <- mean(sample1980$Spread_Portfolio))
+(mean1990D1 <- mean(sample1990$Low))
+(mean1990D10 <- mean(sample1990$High))
+(mean1990SP <- mean(sample1990$Spread_Portfolio))
+(mean2000D1 <- mean(sample2000$Low))
+(mean2000D10 <- mean(sample2000$High))
+(mean2000SP <- mean(sample2000$Spread_Portfolio))
+(mean2010D1 <- mean(sample2010$Low))
+(mean2010D10 <- mean(sample2010$High))
+(mean2010SP <- mean(sample2010$Spread_Portfolio))
+```
+```{r}
+(meanrecD1 <- mean(Recession$Low))
+(meanrecD10 <- mean(Recession$High))
+(meanrecSP <- mean(Recession$Spread_Portfolio))
+(meanexpD1 <- mean(Expansion$Low))
+(meanexpD10 <- mean(Expansion$High))
+(meanexpSP <- mean(Expansion$Spread_Portfolio))
+
+```
+
+##Q3
+
+```{r}
+df$USREC[4]
+```
+
+
+##Plot for D1
+```{r}
+p <- c()
+for (i in 1:length(df$date)){
+  if (df$USREC[i]== 1){
+    p <- append(p,df$date[i])
+  }
+}
+p
+```
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(df, aes(date, Low)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=p,color = "red")+
+  xlab("date") + 
+  ylab("Return")
+
+
+```
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(df, aes(date, High)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=p,color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(df, aes(date, Spread_Portfolio)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=p,color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+
+## Sample 1960
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(sample1960, aes(date, High)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=c(196004,196102),color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(sample1960, aes(date, Low)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=c(196004,196102),color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(sample1960, aes(date, Spread_Portfolio)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=c(196004,196102),color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+
+
+
+###Q4
+## Jan effect
+
+```{r}
+Jans <- c(194001,195001,196001,197001,198001,199001,200001,201001)
+jdf <- df[df$date%in%Jans,]
+```
+
+```{r}
+mean(jdf$Low)
+```
+```{r}
+mean(jdf$High)
+```
+
+```{r}
+mean(jdf$Spread_Portfolio)
+```
+
+
+```{r}
+head(df)
+```
+
+
+
+
+##### Equal weighted
+
+```{r}
+df <- read.csv("Equal.csv")
+```
+```{r}
+df <- data.frame(df)
+head(df)
+```
+
+```{r}
+df$X <- df$date
+```
+
+```{r}
+head(df)
+```
+
+
+
+
+```{r}
+1
+##df$X <- (df$X*100)+1
+##df$X <- as.character(df$X)
+```
+```{r}
+1
+##df$X <- as.Date(df$X,"%Y%m%d")
+```
+
+```{r}
+1
+##df$date <- df$X
+```
+
+```{r}
+1
+##df$X <- as.numeric(df$X)
+```
+
+
+
+## Spread Porfolio
+
+```{r}
+df$Spread_Portfolio <- df$High-df$Low
+```
+
+
+#mean
+```{r}
+mean1 <- mean(df$Low)
+mean2 <- mean(df$X2)
+mean3 <- mean(df$X3)
+mean4 <- mean(df$X4)
+mean5 <- mean(df$X5)
+mean6 <- mean(df$X6)
+mean7 <- mean(df$X7)
+mean8 <- mean(df$X8)
+mean9 <- mean(df$X9)
+mean10 <- mean(df$High)
+meanspread <- mean(df$Spread_Portfolio)
+meanrf <- mean(df$RF)
+```
+
+##sd
+```{r}
+sd1 <- sd(df$Low)
+sd2 <- sd(df$X2)
+sd3 <- sd(df$X3)
+sd4 <- sd(df$X4)
+sd5 <- sd(df$X5)
+sd6 <- sd(df$X6)
+sd7 <- sd(df$X7)
+sd8 <- sd(df$X8)
+sd9 <- sd(df$X9)
+sd10 <- sd(df$High)
+sdspread <- sd(df$Spread_Portfolio)
+```
+
+##Sharp ratio
+```{r}
+(sr1 <- (mean1-meanrf )/sd1)
+(sr2 <- (mean2-meanrf )/sd2)
+(sr3 <- (mean3-meanrf )/sd3)
+(sr4 <- (mean4-meanrf )/sd4)
+(sr5 <- (mean5-meanrf )/sd5)
+(sr6 <- (mean6-meanrf )/sd6)
+(sr7 <- (mean7-meanrf )/sd7)
+(sr8 <- (mean8-meanrf )/sd8)
+(sr9 <- (mean9-meanrf )/sd9)
+(sr10 <- (mean10-meanrf )/sd10)
+(srspread <- (meanspread-meanrf )/sdspread)
+```
+
+```{r}
+srspread
+```
+
+
+
+##CAPM regression
+```{r}
+df$excess_return1 <- df$Low-df$RF
+df$excess_return2 <- df$X2-df$RF
+df$excess_return3 <- df$X3-df$RF
+df$excess_return4 <- df$X4-df$RF
+df$excess_return5 <- df$X5-df$RF
+df$excess_return6 <- df$X6-df$RF
+df$excess_return7 <- df$X7-df$RF
+df$excess_return8 <- df$X8-df$RF
+df$excess_return9 <- df$X9-df$RF
+df$excess_return10 <- df$High-df$RF
+```
+
+
+## 3 fector data
+```{r}
+FM <- read.csv("3FM.csv")
+```
+```{r}
+head(FM)
+```
+
+### Mrt-Rf/100
+```{r}
+FM$Mkt.RF <- FM$Mkt.RF/100
+```
+
+```{r}
+head(FM)
+```
+
+##CAPM regressions
+```{r}
+lm(df$excess_return1~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return2~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return3~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return4~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return5~FM$Mkt.RF)
+```
+
+```{r}
+lm(df$excess_return6~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return7~FM$Mkt.RF)
+```
+```{r}
+lm(df$excess_return8~FM$Mkt.RF)
+```
+
+```{r}
+lm(df$excess_return9~FM$Mkt.RF)
+```
+
+```{r}
+lm(df$excess_return10~FM$Mkt.RF)
+```
+
+```{r}
+lm(df$Spread_Portfolio~FM$Mkt.RF)
+```
+
+
+
+##Fama-French-model
+```{r}
+lm(df$excess_return1~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return2~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return3~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return4~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return5~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return6~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return7~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return8~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return9~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+
+```{r}
+lm(df$excess_return10~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+```{r}
+lm(df$Spread_Portfolio~FM$Mkt.RF+FM$SMB+FM$SMB+FM$HML)
+```
+##Q2
+
+```{r}
+tail(df)
+```
+
+```{r}
+sample1960 <-  df[df$X>=196001&df$X<197001 ,]
+sample1970 <-  df[df$X>=197001&df$X<=198001 ,]
+sample1980 <-  df[df$X>=198001&df$X<=199001 ,]
+sample1990 <-  df[df$X>=199001&df$X<=200001 ,]
+sample2000 <-  df[df$X>=200001&df$X<=201001 ,]
+sample2010 <-  df[df$X>=201001 ,]
+```
+
+```{r}
+head(df)
+```
+
+
+### recession file
+```{r}
+USREC <- read.csv("USREC.csv")
+USREC <- na.omit(USREC)
+```
+
+
+
+```{r}
+df$USREC <- USREC$USREC
+```
+
+
+
+```{r}
+Recession <- df[df$USREC==1,]
+Expansion <- df[df$USREC==0,]
+```
+
+```{r}
+(mean1960D1 <- mean(sample1960$Low))
+(mean1960D10 <- mean(sample1960$High))
+(mean1960SP <- mean(sample1960$Spread_Portfolio))
+(mean1970D1 <- mean(sample1970$Low))
+(mean1970D10 <- mean(sample1970$High))
+(mean1970SP <- mean(sample1970$Spread_Portfolio))
+(mean1980D1 <- mean(sample1980$Low))
+(mean1980D10 <- mean(sample1980$High))
+(mean1980SP <- mean(sample1980$Spread_Portfolio))
+(mean1990D1 <- mean(sample1990$Low))
+(mean1990D10 <- mean(sample1990$High))
+(mean1990SP <- mean(sample1990$Spread_Portfolio))
+(mean2000D1 <- mean(sample2000$Low))
+(mean2000D10 <- mean(sample2000$High))
+(mean2000SP <- mean(sample2000$Spread_Portfolio))
+(mean2010D1 <- mean(sample2010$Low))
+(mean2010D10 <- mean(sample2010$High))
+(mean2010SP <- mean(sample2010$Spread_Portfolio))
+```
+```{r}
+(meanrecD1 <- mean(Recession$Low))
+(meanrecD10 <- mean(Recession$High))
+(meanrecSP <- mean(Recession$Spread_Portfolio))
+(meanexpD1 <- mean(Expansion$Low))
+(meanexpD10 <- mean(Expansion$High))
+(meanexpSP <- mean(Expansion$Spread_Portfolio))
+
+```
+```{r}
+head(df,1)
+```
+
+##Q3
+
+```{r}
+df$USREC[4]
+```
+
+
+##Plot for D1
+```{r}
+p <- c()
+for (i in 1:length(df$date)){
+  if (df$USREC[i]== 1){
+    p <- append(p,df$date[i])
+  }
+}
+p
+```
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(df, aes(date, Low)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=p,color = "red")+
+  xlab("date") + 
+  ylab("Return")
+
+
+```
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(df, aes(date, High)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=p,color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(df, aes(date, Spread_Portfolio)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=p,color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+
+## Sample 1960
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(sample1960, aes(date, High)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=c(196004,196102),color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(sample1960, aes(date, Low)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=c(196004,196102),color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+```{r, fig.width=15,fig.height=8}
+library(ggplot2)
+ggplot(sample1960, aes(date, Spread_Portfolio)) + 
+  geom_point() + 
+  geom_line() +
+  geom_vline(xintercept=c(196004,196102),color = "red")+
+  xlab("date") + 
+  ylab("Return")
+```
+
+
+###Q4
+## Jan effect
+
+```{r}
+Jans <- c(194001,195001,196001,197001,198001,199001,200001,201001)
+jdf <- df[df$date%in%Jans,]
+```
+
+```{r}
+mean(jdf$Low)
+```
+```{r}
+mean(jdf$High)
+```
+
+```{r}
+mean(jdf$Spread_Portfolio)
+```
+
+```{r}
+sr1
+sr2
+sr3
+sr4
+sr5
+sr6
+sr7
+sr8
+sr9
+sr10
+```
+
+
+
+
+
+
